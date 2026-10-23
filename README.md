@@ -49,6 +49,7 @@ src/
                        flat equipment drawings, home sections
   styles/globals.css   the whole design system (tokens, light/dark, RTL, CJK)
   assets/images/       photos extracted from Kayan's company portfolio PDF
+  assets/images/stock/ licensed Pexels stock photos (illustrative), see CREDITS.md
 ```
 
 **Editing copy.** Change `src/dictionaries/en.ts`, then make the same change in `ar.ts` and `zh.ts`. `npm run check:i18n` lists anything missing.
@@ -62,7 +63,7 @@ src/
 - Light and dark themes follow the system setting until the visitor picks one; the choice is saved in `localStorage` (`kayan-theme`). A small inline script applies it before first paint, so there is no flash.
 - The language switcher keeps the current page (`/en/equipment/cranes` → `/ar/equipment/cranes`) and remembers the choice in the `kayan-locale` cookie.
 - Motion is GSAP + ScrollTrigger. All of it is skipped for `prefers-reduced-motion`, and content is only hidden by script, so nothing stays invisible if JavaScript fails.
-- Equipment without a usable photo in the portfolio is shown as a flat elevation drawing (`components/EquipmentDrawing.tsx`) rather than a stock or generated image.
+- Every equipment category and industry has a licensed Pexels stock photo, and the home hero plays a muted Pexels clip (`public/media/`, poster first, paused under reduced motion or Save-Data, with a pause button). Stock media is always labelled illustrative on the picture and never presented as Kayan's fleet or projects. Sources are in `src/assets/images/stock/CREDITS.md`.
 - Production responses carry a Content-Security-Policy and the usual security headers (`next.config.ts`).
 
 ## Needs confirmation from Kayan before launch

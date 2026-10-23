@@ -13,7 +13,7 @@ import { RentalModels } from "@/components/home/RentalModels";
 import { Showcase } from "@/components/home/Showcase";
 import { WhyKayan } from "@/components/home/WhyKayan";
 import { FaqTable } from "@/components/FaqTable";
-import { equipmentSlugs, industryEquipment, industrySlugs, projects, projectSlugs } from "@/content/catalog";
+import { equipmentSlugs, industryEquipment, industryImage, industrySlugs, projects, projectSlugs } from "@/content/catalog";
 import { getDictionary } from "@/dictionaries";
 import { hasLocale, href } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
@@ -45,10 +45,12 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         note={dict.home.industries.note}
         link={{ href: href(locale, "/industries"), label: dict.home.industries.link }}
         equipmentLabel={dict.industries.page.equipmentLabel}
+        imageTag={dict.common.illustrative}
         cards={industrySlugs.map((slug) => ({
           slug,
           title: dict.industries.items[slug].title,
           body: dict.industries.items[slug].body,
+          image: industryImage[slug],
           equipment: industryEquipment[slug].map((e) => ({ name: dict.equipment.items[e].name, href: href(locale, `/equipment/${e}`) })),
         }))}
       />

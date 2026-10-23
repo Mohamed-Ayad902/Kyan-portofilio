@@ -1,11 +1,6 @@
 import type { StaticImageData } from "next/image";
 
 import accessPlatforms from "@/assets/images/access-platforms-site.jpg";
-import boomLifts from "@/assets/images/crop-boom-lifts.jpg";
-import excavator from "@/assets/images/crop-excavator.jpg";
-import forklift from "@/assets/images/crop-forklift.jpg";
-import mobileCrane from "@/assets/images/crop-mobile-crane.jpg";
-import scissorLifts from "@/assets/images/crop-scissor-lifts.jpg";
 import excavatorFleet from "@/assets/images/excavator-fleet-row.jpg";
 import projectAlamein from "@/assets/images/project-alamein-downtown.jpg";
 import projectCbd from "@/assets/images/project-cbd.jpg";
@@ -13,6 +8,23 @@ import projectElite from "@/assets/images/project-elite-solar.jpg";
 import projectSailun from "@/assets/images/project-sailun-egypt.jpg";
 import projectSunrev from "@/assets/images/project-sunrev-solar.jpg";
 import siteMixed from "@/assets/images/site-loader-crane-forklift.jpg";
+import bulldozers from "@/assets/images/stock/equipment-bulldozers.jpg";
+import clarks from "@/assets/images/stock/equipment-clarks.jpg";
+import cranes from "@/assets/images/stock/equipment-cranes.jpg";
+import dumpTrucks from "@/assets/images/stock/equipment-dump-trucks.jpg";
+import excavators from "@/assets/images/stock/equipment-excavators.jpg";
+import forklifts from "@/assets/images/stock/equipment-forklifts.jpg";
+import manlifts from "@/assets/images/stock/equipment-manlifts.jpg";
+import rollers from "@/assets/images/stock/equipment-rollers.jpg";
+import scissorLifts from "@/assets/images/stock/equipment-scissor-lifts.jpg";
+import indConstruction from "@/assets/images/stock/industry-construction.jpg";
+import indEarthworks from "@/assets/images/stock/industry-earthworks.jpg";
+import indElevated from "@/assets/images/stock/industry-elevated-access.jpg";
+import indIndustrial from "@/assets/images/stock/industry-industrial.jpg";
+import indInfrastructure from "@/assets/images/stock/industry-infrastructure.jpg";
+import indHandling from "@/assets/images/stock/industry-material-handling.jpg";
+import indRoadwork from "@/assets/images/stock/industry-roadwork.jpg";
+import indSolar from "@/assets/images/stock/industry-solar.jpg";
 
 /**
  * Structural content: slugs, groupings and media. All words live in the dictionaries
@@ -38,30 +50,29 @@ export type EquipmentSlug = (typeof equipmentSlugs)[number];
 export const isEquipmentSlug = (value: string): value is EquipmentSlug =>
   (equipmentSlugs as readonly string[]).includes(value);
 
-/** Where the drawing/photo of a category comes from. `photo: null` means a drawn elevation stands in. */
+/**
+ * Media for each category. `photo` is a licensed stock photograph (Pexels, see
+ * src/assets/images/stock/CREDITS.md): it shows the kind of machine, never a Kayan unit, and is
+ * always captioned as illustrative. `scene` is a site photograph from Kayan's portfolio, where one
+ * exists; pages without one use the stock photo in the masthead instead.
+ */
 export const equipment: Record<
   EquipmentSlug,
-  { family: EquipmentFamily; photo: StaticImageData | null; scene: StaticImageData | null }
+  { family: EquipmentFamily; photo: StaticImageData; scene: StaticImageData | null }
 > = {
-  excavators: { family: "earthmoving", photo: excavator, scene: excavatorFleet },
-  bulldozers: { family: "earthmoving", photo: null, scene: null },
-  "dump-trucks": { family: "earthmoving", photo: null, scene: null },
-  rollers: { family: "earthmoving", photo: null, scene: null },
-  cranes: { family: "lifting", photo: mobileCrane, scene: siteMixed },
-  forklifts: { family: "lifting", photo: forklift, scene: null },
-  clarks: { family: "lifting", photo: null, scene: null },
-  manlifts: { family: "access", photo: boomLifts, scene: accessPlatforms },
-  "scissor-lifts": { family: "access", photo: scissorLifts, scene: accessPlatforms },
+  excavators: { family: "earthmoving", photo: excavators, scene: excavatorFleet },
+  bulldozers: { family: "earthmoving", photo: bulldozers, scene: null },
+  "dump-trucks": { family: "earthmoving", photo: dumpTrucks, scene: null },
+  rollers: { family: "earthmoving", photo: rollers, scene: null },
+  cranes: { family: "lifting", photo: cranes, scene: siteMixed },
+  forklifts: { family: "lifting", photo: forklifts, scene: null },
+  clarks: { family: "lifting", photo: clarks, scene: null },
+  manlifts: { family: "access", photo: manlifts, scene: accessPlatforms },
+  "scissor-lifts": { family: "access", photo: scissorLifts, scene: null },
 };
 
 export const familyMembers = (family: EquipmentFamily): EquipmentSlug[] =>
   equipmentSlugs.filter((slug) => equipment[slug].family === family);
-
-export const familyImage: Record<EquipmentFamily, StaticImageData> = {
-  earthmoving: excavator,
-  lifting: mobileCrane,
-  access: scissorLifts,
-};
 
 /** Flat field colour for each showcase chapter: the darkest large tone of its picture. */
 export const familyField: Record<EquipmentFamily, string> = {
@@ -98,6 +109,18 @@ export const industrySlugs = [
   "elevated-access",
 ] as const;
 export type IndustrySlug = (typeof industrySlugs)[number];
+
+/** Illustrative stock photograph for each industry (Pexels). Not a Kayan project. */
+export const industryImage: Record<IndustrySlug, StaticImageData> = {
+  construction: indConstruction,
+  infrastructure: indInfrastructure,
+  solar: indSolar,
+  industrial: indIndustrial,
+  earthworks: indEarthworks,
+  "material-handling": indHandling,
+  roadwork: indRoadwork,
+  "elevated-access": indElevated,
+};
 
 export const industryEquipment: Record<IndustrySlug, EquipmentSlug[]> = {
   construction: ["excavators", "cranes", "dump-trucks", "manlifts"],

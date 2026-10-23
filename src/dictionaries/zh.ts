@@ -68,7 +68,9 @@ const zh: Dictionary = {
     primaryNav: "主导航",
     footerNav: "页脚导航",
     illustrative: "示意图片",
-    drawing: "线稿",
+    illustrativeFootage: "示意视频",
+    pauseVideo: "暂停视频",
+    playVideo: "播放视频",
   },
 
   nav: {
@@ -85,7 +87,8 @@ const zh: Dictionary = {
     hero: {
       titleLines: ["埃及重型", "设备租赁"],
       standfirst: "为建筑、工业和基础设施项目提供挖掘机、起重机、叉车和高空作业平台。可按天租用，也可签订覆盖整个工期的合同。",
-      mosaicLabel: "Kayan 资料中的设备与工地",
+      mosaicLabel: "示意视频与设备照片",
+      videoLabel: "挖掘机为铰接式自卸车装土的航拍画面。授权示意素材，并非 Kayan 设备。",
     },
     intro: {
       headingLines: ["每个大型项目", "背后的设备"],
@@ -201,7 +204,7 @@ const zh: Dictionary = {
       ctaHeading: "工地需要这类设备？",
       ctaBody: "发送工作内容、地点和租期，Kayan 将回复设备可用性和价格。",
       related: "同类设备",
-      drawingNote: "设备类别示意线稿，并非特定设备。",
+      photoNote: "设备类别示意照片，并非 Kayan 设备。",
     },
     items: {
       excavators: {
@@ -478,7 +481,7 @@ const zh: Dictionary = {
     equipmentTitle: "设备",
     officeTitle: "办公地址",
     legal: "© {year} Kayan 设备租赁。保留所有权利。",
-    imageCredit: "图片来自 Kayan 公司资料。部分图片为示意，并非 Kayan 特定设备。",
+    imageCredit: "项目与工地照片来自 Kayan 公司资料。设备与行业照片及首页视频为授权图库素材（Pexels），仅作示意，并非 Kayan 的设备或项目。",
   },
 
   notFound: { title: "页面未找到", body: "您访问的页面已移动或不存在。", back: "返回首页" },

@@ -77,7 +77,9 @@ const en = {
     primaryNav: "Main navigation",
     footerNav: "Footer navigation",
     illustrative: "Illustrative image",
-    drawing: "Drawing",
+    illustrativeFootage: "Illustrative footage",
+    pauseVideo: "Pause video",
+    playVideo: "Play video",
   },
 
   nav: {
@@ -95,7 +97,8 @@ const en = {
       titleLines: ["Heavy equipment", "rental in Egypt"],
       standfirst:
         "Excavators, cranes, forklifts and access platforms for construction, industrial and infrastructure projects. By the day, or on contract for the length of the job.",
-      mosaicLabel: "Equipment and sites from Kayan's portfolio",
+      mosaicLabel: "Illustrative footage and equipment photographs",
+      videoLabel: "Aerial view of an excavator loading an articulated dump truck. Illustrative stock footage, not Kayan's fleet.",
     },
     intro: {
       headingLines: ["Behind every", "major project"],
@@ -235,7 +238,7 @@ const en = {
       ctaHeading: "Need this on site?",
       ctaBody: "Send the job, location and rental period and Kayan will come back with availability and a price.",
       related: "In the same family",
-      drawingNote: "Drawing of the category, not a specific unit.",
+      photoNote: "Illustrative photograph of the category, not a Kayan unit.",
     },
     items: {
       excavators: {
@@ -771,7 +774,7 @@ const en = {
     equipmentTitle: "Equipment",
     officeTitle: "Office",
     legal: "© {year} Kayan Equipment Rental. All rights reserved.",
-    imageCredit: "Photography from Kayan's company portfolio. Some images are illustrative and do not show a specific Kayan unit.",
+    imageCredit: "Project and site photography from Kayan's company portfolio. Equipment and industry photographs and the home page video are licensed stock (Pexels), shown for illustration only: they do not show Kayan's own fleet or projects.",
   },
 
   notFound: {
