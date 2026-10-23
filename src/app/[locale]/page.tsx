@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ContactBand } from "@/components/ContactBand";
+import { EquipmentTicker } from "@/components/home/EquipmentTicker";
 import { HomeHero } from "@/components/home/HomeHero";
 import { IndustriesDeck } from "@/components/home/IndustriesDeck";
 import { Intro } from "@/components/home/Intro";
@@ -12,7 +13,7 @@ import { RentalModels } from "@/components/home/RentalModels";
 import { Showcase } from "@/components/home/Showcase";
 import { WhyKayan } from "@/components/home/WhyKayan";
 import { FaqTable } from "@/components/FaqTable";
-import { industryEquipment, industrySlugs, projects, projectSlugs } from "@/content/catalog";
+import { equipmentSlugs, industryEquipment, industrySlugs, projects, projectSlugs } from "@/content/catalog";
 import { getDictionary } from "@/dictionaries";
 import { hasLocale, href } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
@@ -33,6 +34,10 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   return (
     <>
       <HomeHero locale={locale} dict={dict} />
+      <EquipmentTicker
+        label={dict.nav.equipment}
+        items={equipmentSlugs.map((slug) => ({ href: href(locale, `/equipment/${slug}`), name: dict.equipment.items[slug].name }))}
+      />
       <Intro locale={locale} dict={dict} />
       <Showcase locale={locale} dict={dict} />
       <IndustriesDeck
