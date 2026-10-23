@@ -1,12 +1,13 @@
 "use client";
 
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-type Card = { slug: string; title: string; body: string; equipment: { name: string; href: string }[] };
+type Card = { slug: string; title: string; body: string; image: StaticImageData; equipment: { name: string; href: string }[] };
 
 /**
- * Industries as a deck of text cards. On large screens with motion allowed the stage holds for
+ * Industries as a deck of cards, each topped by an illustrative stock photograph. On large screens with motion allowed the stage holds for
  * about three screens: each step brings the next card forward and folds the earlier ones into
  * spines at the start edge. Elsewhere (phones, reduced motion, no JS) the cards simply stack.
  */
@@ -16,12 +17,14 @@ export function IndustriesDeck({
   link,
   cards,
   equipmentLabel,
+  imageTag,
 }: {
   heading: string;
   note: string;
   link: { href: string; label: string };
   cards: Card[];
   equipmentLabel: string;
+  imageTag: string;
 }) {
   const wrapper = useRef<HTMLDivElement>(null);
   const [pinned, setPinned] = useState(false);
@@ -82,6 +85,10 @@ export function IndustriesDeck({
                   </button>
                 ) : null}
                 <div className="deck__content" aria-hidden={state === "spine" ? true : undefined}>
+                  <div className="deck__photo">
+                    <Image src={card.image} alt="" sizes="(min-width: 1024px) 620px, (min-width: 720px) 50vw, 100vw" placeholder="blur" />
+                    <span className="media-tag">{imageTag}</span>
+                  </div>
                   <h3 className="deck__card-title">{card.title}</h3>
                   <p>{card.body}</p>
                   <div className="deck__foot">

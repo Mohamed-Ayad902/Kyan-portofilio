@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import platforms from "@/assets/images/access-platforms-site.jpg";
 import { CtaField } from "@/components/CtaField";
-import { EquipmentDrawing } from "@/components/EquipmentDrawing";
 import { PageHead } from "@/components/PageHead";
-import { industryEquipment, industrySlugs } from "@/content/catalog";
+import { industryEquipment, industryImage, industrySlugs } from "@/content/catalog";
 import { href } from "@/lib/i18n";
 import { loadPage } from "@/lib/page";
 import { pageMetadata } from "@/lib/seo";
@@ -46,12 +46,15 @@ export default async function IndustriesPage({ params }: PageProps<"/[locale]/in
               {industryEquipment[slug].map((e) => (
                 <li key={e}>
                   <Link href={href(locale, `/equipment/${e}`)}>
-                    <EquipmentDrawing slug={e} title="" />
                     {dict.equipment.items[e].name}
                   </Link>
                 </li>
               ))}
             </ul>
+            <figure className="industry__figure photo-figure">
+              <Image src={industryImage[slug]} alt="" sizes="(min-width: 900px) 58vw, 100vw" placeholder="blur" />
+              <figcaption>{dict.common.illustrative}</figcaption>
+            </figure>
           </section>
         ))}
       </div>

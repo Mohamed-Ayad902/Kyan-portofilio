@@ -4,7 +4,6 @@ import Link from "next/link";
 
 import platforms from "@/assets/images/site-loader-crane-forklift.jpg";
 import { CtaField } from "@/components/CtaField";
-import { EquipmentDrawing } from "@/components/EquipmentDrawing";
 import { PageHead } from "@/components/PageHead";
 import { equipment, equipmentFamilies, familyMembers } from "@/content/catalog";
 import { href } from "@/lib/i18n";
@@ -50,11 +49,8 @@ export default async function EquipmentIndex({ params }: PageProps<"/[locale]/eq
                   <li key={slug} data-reveal>
                     <Link className="fleet__item" href={href(locale, `/equipment/${slug}`)}>
                       <div className="fleet__visual">
-                        {photo ? (
-                          <Image src={photo} alt="" sizes="(min-width: 1024px) 28vw, (min-width: 720px) 50vw, 100vw" placeholder="blur" />
-                        ) : (
-                          <EquipmentDrawing slug={slug} title="" />
-                        )}
+                        <Image src={photo} alt="" sizes="(min-width: 1024px) 28vw, (min-width: 720px) 50vw, 100vw" placeholder="blur" />
+                        <span className="media-tag">{dict.common.illustrative}</span>
                       </div>
                       <div className="fleet__text">
                         <h3>{item.name}</h3>
