@@ -1,6 +1,6 @@
 # Project pictures
 
-`project-alamein-downtown.jpg` is the picture Kayan's company portfolio places beside the Alamein Downtown Towers Project. It is Kayan's own material, used as supplied, and the home hero still shows it.
+`project-alamein-downtown.jpg` is the picture Kayan's company portfolio places beside the Alamein Downtown Towers Project. It is Kayan's own material, kept in the repository but no longer shown.
 
 The projects page and the home slider read a list per project (`projects[slug].media` in `src/content/catalog.ts`). The first picture leads wherever one picture is shown. Record every picture below with its source, and set its `credit` so the source shows under it.
 
