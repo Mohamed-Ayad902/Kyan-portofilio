@@ -6,7 +6,17 @@ The projects page and the home slider read a list per project (`projects[slug].m
 
 ## Added
 
-None yet. Every project still shows only its portfolio picture.
+The site is a demo and the owner will replace these with Kayan's own media. Because no open-licence photo of the named projects was reachable, each project first shows Pexels stock photographs of the same kind of work, then its portfolio picture. They are **not** pictures of the named projects. All are in `project-media/`, under the [Pexels License](https://www.pexels.com/license/) (free for commercial use, no attribution required), downloaded 2026-10-24, resized to at most 2000 px.
+
+| Project | File | Source |
+| --- | --- | --- |
+| CBD Project | `cbd-business-district.jpg` | https://www.pexels.com/photo/5847764/ |
+| CBD Project | `cbd-tower-construction.jpg` | https://www.pexels.com/photo/7168457/ |
+| Alamein Downtown Towers Project | `alamein-tower-crane.jpg` | https://www.pexels.com/photo/34637957/ (Valentin Ivantsov) |
+| Alamein Downtown Towers Project | `alamein-skyscraper-cranes.jpg` | https://www.pexels.com/photo/13986101/ (Johny Goh) |
+| Sunrev Solar Project | `sunrev-solar-aerial.jpg` | https://www.pexels.com/photo/6996421/ |
+| Elite Solar Project | `elite-solar-desert.jpg` | https://www.pexels.com/photo/9229394/ |
+| Sailun Egypt Tyre Project | `sailun-tyre-warehouse.jpg` | https://www.pexels.com/photo/3807167/ (Andrea Piacquadio) |
 
 ## Looked for, not added (2026-10-24)
 
