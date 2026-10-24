@@ -80,6 +80,12 @@ const en = {
     illustrativeFootage: "Illustrative footage",
     pauseVideo: "Pause video",
     playVideo: "Play video",
+    pauseSlides: "Pause slideshow",
+    playSlides: "Play slideshow",
+    previous: "Previous",
+    next: "Next",
+    submenu: "{label}: more pages",
+    announcement: "Short-term and long-term equipment rental in Egypt. Request a quote",
   },
 
   nav: {
@@ -99,6 +105,15 @@ const en = {
         "Excavators, cranes, forklifts and access platforms for construction, industrial and infrastructure projects. By the day, or on contract for the length of the job.",
       mosaicLabel: "Illustrative footage and equipment photographs",
       videoLabel: "Aerial view of an excavator loading an articulated dump truck. Illustrative stock footage, not Kayan's fleet.",
+      carouselLabel: "Kayan at a glance",
+      slideOf: "{n} of {total}",
+    },
+    stats: {
+      label: "Kayan in figures",
+      equipment: "Equipment categories for rent",
+      industries: "Types of work supported",
+      projects: "Projects named in our portfolio",
+      models: "Rental models: short and long term",
     },
     intro: {
       headingLines: ["Behind every", "major project"],

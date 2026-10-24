@@ -1,50 +1,49 @@
-import Image from "next/image";
-import Link from "next/link";
-
-import platforms from "@/assets/images/access-platforms-site.jpg";
-import cranes from "@/assets/images/mobile-cranes-cluster.jpg";
+import alamein from "@/assets/images/project-alamein-downtown.jpg";
+import desert from "@/assets/images/excavator-site-desert.jpg";
 import type { Dictionary } from "@/dictionaries/en";
 import { href, type Locale } from "@/lib/i18n";
 
-import { MaskedTitle } from "../MaskedTitle";
-import { HeroVideo } from "./HeroVideo";
+import { HeroCarousel } from "./HeroCarousel";
 
 /**
- * Mosaic masthead with the title on the axis: an illustrative stock clip in the lead cell, butted
- * against a flat brand tile and portfolio photographs.
+ * Three statements already on the site, in rotation: what Kayan rents (over the stock clip), how
+ * renting works and the projects named in the portfolio (over portfolio photographs).
  */
 export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const h = dict.home.hero;
-  const items = dict.equipment.items;
   return (
-    <section className="hero" aria-labelledby="hero-title">
-      <div className="mosaic" role="group" aria-label={h.mosaicLabel}>
-        <div className="mosaic__cell mosaic__cell--lead">
-          <HeroVideo label={h.videoLabel} tag={dict.common.illustrativeFootage} pause={dict.common.pauseVideo} play={dict.common.playVideo} />
-        </div>
-        <div className="mosaic__cell mosaic__cell--accent" />
-        <div className="mosaic__cell mosaic__cell--platforms">
-          <Image src={platforms} alt={`${items.manlifts.name}, ${items["scissor-lifts"].name}`} sizes="(min-width: 768px) 34vw, 33vw" placeholder="blur" />
-        </div>
-        <div className="mosaic__cell mosaic__cell--crane">
-          <Image src={cranes} alt={items.cranes.name} sizes="(min-width: 768px) 17vw, 33vw" placeholder="blur" />
-        </div>
-      </div>
-
-      <div className="hero__body">
-        <MaskedTitle as="h1" id="hero-title" className="hero__title" lines={h.titleLines} />
-        <div className="hero__aside">
-          <p className="hero__standfirst">{h.standfirst}</p>
-          <div className="hero__actions">
-            <Link className="btn btn--accent btn--large" href={href(locale, "/contact")}>
-              {dict.common.requestQuote}
-            </Link>
-            <Link className="text-link" href={href(locale, "/equipment")}>
-              {dict.common.explore}
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
+    <HeroCarousel
+      title={h.titleLines.join(" ")}
+      labels={{
+        carousel: h.carouselLabel,
+        slideOf: h.slideOf,
+        pause: dict.common.pauseSlides,
+        play: dict.common.playSlides,
+        videoLabel: h.videoLabel,
+      }}
+      slides={[
+        {
+          label: dict.nav.equipment,
+          titleLines: h.titleLines,
+          body: h.standfirst,
+          cta: { href: href(locale, "/contact"), label: dict.common.requestQuote },
+          tag: dict.common.illustrativeFootage,
+        },
+        {
+          label: dict.nav.process,
+          titleLines: [dict.home.models.heading],
+          body: dict.home.models.body,
+          cta: { href: href(locale, "/rental-process"), label: dict.home.process.link },
+          image: desert,
+        },
+        {
+          label: dict.nav.projects,
+          titleLines: dict.home.projects.headingLines,
+          body: dict.home.projects.lead,
+          cta: { href: href(locale, "/projects"), label: dict.home.projects.link },
+          image: alamein,
+        },
+      ]}
+    />
   );
 }

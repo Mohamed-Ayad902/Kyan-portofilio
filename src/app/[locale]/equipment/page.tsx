@@ -50,7 +50,6 @@ export default async function EquipmentIndex({ params }: PageProps<"/[locale]/eq
                     <Link className="fleet__item" href={href(locale, `/equipment/${slug}`)}>
                       <div className="fleet__visual">
                         <Image src={photo} alt="" sizes="(min-width: 1024px) 28vw, (min-width: 720px) 50vw, 100vw" placeholder="blur" />
-                        <span className="media-tag">{dict.common.illustrative}</span>
                       </div>
                       <div className="fleet__text">
                         <h3>{item.name}</h3>

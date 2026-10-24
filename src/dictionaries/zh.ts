@@ -71,6 +71,12 @@ const zh: Dictionary = {
     illustrativeFootage: "示意视频",
     pauseVideo: "暂停视频",
     playVideo: "播放视频",
+    pauseSlides: "暂停轮播",
+    playSlides: "播放轮播",
+    previous: "上一个",
+    next: "下一个",
+    submenu: "{label}：更多页面",
+    announcement: "埃及境内短期与长期设备租赁。申请报价",
   },
 
   nav: {
@@ -89,6 +95,15 @@ const zh: Dictionary = {
       standfirst: "为建筑、工业和基础设施项目提供挖掘机、起重机、叉车和高空作业平台。可按天租用，也可签订覆盖整个工期的合同。",
       mosaicLabel: "示意视频与设备照片",
       videoLabel: "挖掘机为铰接式自卸车装土的航拍画面。授权示意素材，并非 Kayan 设备。",
+      carouselLabel: "Kayan 概览",
+      slideOf: "第 {n} 项，共 {total} 项",
+    },
+    stats: {
+      label: "Kayan 数据一览",
+      equipment: "可租设备类别",
+      industries: "支持的工程类型",
+      projects: "公司资料中列出的项目",
+      models: "租赁方式：短期与长期",
     },
     intro: {
       headingLines: ["每个大型项目", "背后的设备"],

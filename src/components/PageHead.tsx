@@ -5,10 +5,13 @@ import type { Locale } from "@/lib/i18n";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { MaskedTitle } from "./MaskedTitle";
 
-/** `tag` labels a stock photograph as illustrative, over the picture itself. */
+/** `tag` labels a stock photograph as illustrative, over the picture itself. `kind` is kept for callers; both render full bleed. */
 type Band = { kind: "photo" | "split"; image: StaticImageData; alt: string; position?: string; tag?: string };
 
-/** Inner-page masthead: a picture band across the top, then the title on the 42% axis. */
+/**
+ * Inner-page masthead: a full-bleed photograph under the floating header, with the breadcrumbs and
+ * title in condensed capitals over its lower edge, cut by the same V as the home masthead.
+ */
 export function PageHead({
   locale,
   titleLines,
@@ -27,28 +30,31 @@ export function PageHead({
   aside?: React.ReactNode;
 }) {
   return (
-    <header className="page-head">
-      <div className={`page-head__band ${band.kind === "split" ? "page-head__band--split" : ""}`}>
+    <header className="page-head" data-overlay-head>
+      <div className="page-head__band">
         <div className="page-head__photo">
           <Image
             src={band.image}
             alt={band.alt}
             preload
             fetchPriority="high"
-            sizes={band.kind === "split" ? "67vw" : "100vw"}
+            sizes="100vw"
             placeholder="blur"
             style={band.position ? { objectPosition: band.position } : undefined}
           />
           {band.tag ? <span className="media-tag">{band.tag}</span> : null}
         </div>
-        {band.kind === "split" ? <div aria-hidden="true" /> : null}
+        <div className="page-head__over">
+          <Breadcrumbs locale={locale} label={crumbLabel} items={crumbs} />
+          <MaskedTitle as="h1" className="page-head__title" lines={titleLines} />
+        </div>
       </div>
-      <div className="page-head__body">
-        <Breadcrumbs locale={locale} label={crumbLabel} items={crumbs} />
-        <MaskedTitle as="h1" className="page-head__title" lines={titleLines} />
-        {aside ? <div className="page-head__aside">{aside}</div> : null}
-        {lead ? <p className="page-head__lead">{lead}</p> : null}
-      </div>
+      {aside || lead ? (
+        <div className="page-head__body">
+          {lead ? <p className="page-head__lead">{lead}</p> : null}
+          {aside ? <div className="page-head__aside">{aside}</div> : null}
+        </div>
+      ) : null}
     </header>
   );
 }
