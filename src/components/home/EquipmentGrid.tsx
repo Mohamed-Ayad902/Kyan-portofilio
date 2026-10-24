@@ -28,7 +28,6 @@ export function EquipmentGrid({ locale, dict }: { locale: Locale; dict: Dictiona
                   <span className="tile__title">{item.name}</span>
                   <span className="tile__body">{item.short}</span>
                 </span>
-                <span className="media-tag">{dict.common.illustrative}</span>
               </Link>
             </li>
           );

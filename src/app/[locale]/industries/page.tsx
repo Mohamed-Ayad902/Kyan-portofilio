@@ -53,7 +53,6 @@ export default async function IndustriesPage({ params }: PageProps<"/[locale]/in
             </ul>
             <figure className="industry__figure photo-figure">
               <Image src={industryImage[slug]} alt="" sizes="(min-width: 900px) 58vw, 100vw" placeholder="blur" />
-              <figcaption>{dict.common.illustrative}</figcaption>
             </figure>
           </section>
         ))}

@@ -30,7 +30,6 @@ export function IndustriesGrid({ locale, dict }: { locale: Locale; dict: Diction
                   ))}
                 </span>
               </span>
-              <span className="media-tag">{dict.common.illustrative}</span>
             </Link>
           </li>
         ))}
