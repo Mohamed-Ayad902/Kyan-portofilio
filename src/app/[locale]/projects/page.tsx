@@ -51,10 +51,14 @@ export default async function ProjectsPage({ params }: PageProps<"/[locale]/proj
               </dl>
               {item.details.length === 0 ? <p className="project__note">{p.page.detailsOnRequest}</p> : null}
             </div>
-            <figure className="project__picture" data-reveal>
-              <Image src={projects[slug].image} alt={item.name} sizes="(min-width: 1024px) 50vw, 100vw" placeholder="blur" />
-              <figcaption className="visually-hidden">{p.page.imageNote}</figcaption>
-            </figure>
+            <div className="project__media">
+              {projects[slug].media.map((m, i) => (
+                <figure className="project__picture" key={i} data-reveal>
+                  <Image src={m.image} alt={item.name} sizes="(min-width: 1024px) 50vw, 100vw" placeholder="blur" />
+                  <figcaption className={m.credit ? "project__credit" : "visually-hidden"}>{m.credit ?? p.page.imageNote}</figcaption>
+                </figure>
+              ))}
+            </div>
           </article>
         );
       })}

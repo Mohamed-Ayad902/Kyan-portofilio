@@ -2412,6 +2412,16 @@ main {
 :root[data-locale="zh"] .project__name {
   line-height: 1.2;
 }
+.project__media {
+  display: grid;
+  gap: 1rem;
+}
+.project__credit {
+  padding: 0.5rem 0.75rem;
+  background: var(--field);
+  color: var(--on-field-muted);
+  font-size: 0.8125rem;
+}
 .project__picture {
   background: var(--field);
   display: grid;
@@ -2457,12 +2467,12 @@ main {
     grid-row: 2;
     padding-inline-end: var(--gutter);
   }
-  .project__picture {
+  .project__media {
     grid-column: 2;
     grid-row: 2;
   }
   .project:nth-of-type(even) .project__name {
-    padding-inline-start: var(--axis);
+    margin-inline-start: var(--axis);
   }
 }
 

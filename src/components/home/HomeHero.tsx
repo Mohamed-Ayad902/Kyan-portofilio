@@ -20,7 +20,7 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
     <section className="hero" aria-labelledby="hero-title">
       <div className="mosaic" role="group" aria-label={h.mosaicLabel}>
         <div className="mosaic__cell mosaic__cell--lead">
-          <HeroVideo label={h.videoLabel} tag={dict.common.illustrativeFootage} pause={dict.common.pauseVideo} play={dict.common.playVideo} />
+          <HeroVideo label={h.videoLabel} pause={dict.common.pauseVideo} play={dict.common.playVideo} />
         </div>
         <div className="mosaic__cell mosaic__cell--accent" />
         <div className="mosaic__cell mosaic__cell--platforms">

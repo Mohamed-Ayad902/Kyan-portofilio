@@ -10,7 +10,7 @@ import poster from "@/assets/images/stock/hero-earthworks-poster.jpg";
  * never waits on the video. The clip only plays when motion is allowed and the visitor has not
  * asked to save data; otherwise the still stays. A visible control pauses it (WCAG 2.2.2).
  */
-export function HeroVideo({ label, tag, pause, play }: { label: string; tag: string; pause: string; play: string }) {
+export function HeroVideo({ label, pause, play }: { label: string; pause: string; play: string }) {
   const video = useRef<HTMLVideoElement>(null);
   const [allowed, setAllowed] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -34,6 +34,14 @@ export function HeroVideo({ label, tag, pause, play }: { label: string; tag: str
     el.play().catch(() => setPlaying(false));
   }, [allowed]);
 
+  // `loop` replays the clip; this covers browsers that still fire `ended` and stop.
+  function replay() {
+    const el = video.current;
+    if (!el) return;
+    el.currentTime = 0;
+    el.play().catch(() => setPlaying(false));
+  }
+
   function toggle() {
     const el = video.current;
     if (!el) return;
@@ -55,6 +63,7 @@ export function HeroVideo({ label, tag, pause, play }: { label: string; tag: str
           aria-label={label}
           onPlaying={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
+          onEnded={replay}
         >
           <source src="/media/hero-earthworks-1080.mp4" type="video/mp4" media="(min-width: 900px)" />
           <source src="/media/hero-earthworks-720.mp4" type="video/mp4" />
@@ -62,7 +71,6 @@ export function HeroVideo({ label, tag, pause, play }: { label: string; tag: str
       ) : (
         <span className="visually-hidden">{label}</span>
       )}
-      <span className="media-tag">{tag}</span>
       {allowed ? (
         <button type="button" className="hero-video__toggle" onClick={toggle} aria-label={playing ? pause : play}>
           <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
