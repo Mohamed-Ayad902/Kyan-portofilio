@@ -46,7 +46,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           slug,
           name: dict.projects.items[slug].name,
           sector: dict.projects.sectors[projects[slug].sector],
-          image: projects[slug].image,
+          image: projects[slug].media[0]!.image,
           href: `${href(locale, "/projects")}#${slug}`,
         }))}
       />

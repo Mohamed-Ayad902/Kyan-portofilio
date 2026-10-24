@@ -2,7 +2,7 @@
 
 All files in this folder and `public/media/` are from [Pexels](https://www.pexels.com/license/) under the Pexels License (free for commercial use, no attribution required, no resale of unaltered copies, no implied endorsement by people or brands shown).
 
-They are **illustrative only**. They do not show Kayan's own fleet, crews or projects, and every place the site shows one labels it "Illustrative image" or "Illustrative footage". Brand names visible on machines (CAT, Komatsu, Hyster, Genie and others) belong to the photographers' subjects and do not imply any relationship with Kayan.
+They are **illustrative only**. They do not show Kayan's own fleet, crews or projects, and the footer's image credit says so. The "Illustrative image" and "Illustrative footage" labels that used to sit on the pictures and the hero clip were removed on 2026-10-24 at the owner's request. Brand names visible on machines (CAT, Komatsu, Hyster, Genie and others) belong to the photographers' subjects and do not imply any relationship with Kayan.
 
 Downloaded 2026-10-23, resized to at most 2000 px and recompressed. Next.js serves them as AVIF/WebP at responsive sizes.
 

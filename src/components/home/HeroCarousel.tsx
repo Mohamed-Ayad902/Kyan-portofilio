@@ -13,7 +13,6 @@ export type HeroSlide = {
   cta: { href: string; label: string };
   /** Omitted on the lead slide, which plays the stock clip over its poster instead. */
   image?: StaticImageData;
-  tag?: string;
 };
 
 type Labels = { carousel: string; slideOf: string; pause: string; play: string; videoLabel: string };
@@ -21,13 +20,19 @@ type Labels = { carousel: string; slideOf: string; pause: string; play: string; 
 /**
  * Full-height masthead that rotates through three short statements over full-bleed media. A
  * pager track with a sliding selector names each slide; its timer runs in CSS, so it stops with
- * hover, focus, the pause button or reduced motion. Only the first slide carries the page's h1
- * (kept outside the rotation so it is always present to assistive technology).
+ * hover, focus, the pause button or reduced motion. The lead slide stays for one full play of its
+ * clip (the clip restarts from its first frame each time the slide comes round, and replays if it
+ * ends first); the others stay for 8 seconds. Only the first slide carries the page's h1 (kept
+ * outside the rotation so it is always present to assistive technology).
  */
+const SLIDE_SECONDS = 8;
+/** Length of /media/hero-earthworks-*.mp4, used until the browser reports the real one. */
+const CLIP_SECONDS = 16;
 export function HeroCarousel({ title, slides, labels }: { title: string; slides: HeroSlide[]; labels: Labels }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [motion, setMotion] = useState(false);
+  const [clip, setClip] = useState(CLIP_SECONDS);
   const video = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -39,12 +44,24 @@ export function HeroCarousel({ title, slides, labels }: { title: string; slides:
     return () => query.removeEventListener("change", update);
   }, []);
 
+  // Coming back to the lead slide starts its clip over.
+  useEffect(() => {
+    if (active === 0 && video.current) video.current.currentTime = 0;
+  }, [active]);
+
   useEffect(() => {
     const el = video.current;
     if (!el) return;
     if (motion && !paused && active === 0) el.play().catch(() => {});
     else el.pause();
   }, [motion, paused, active]);
+
+  const replay = () => {
+    const el = video.current;
+    if (!el) return;
+    el.currentTime = 0;
+    el.play().catch(() => {});
+  };
 
   const next = () => setActive((i) => (i + 1) % slides.length);
   const rotating = motion && !paused;
@@ -78,7 +95,16 @@ export function HeroCarousel({ title, slides, labels }: { title: string; slides:
                   <>
                     <Image src={poster} alt="" preload fetchPriority="high" sizes="100vw" placeholder="blur" quality={80} />
                     {motion ? (
-                      <video ref={video} muted loop playsInline preload="metadata" aria-label={labels.videoLabel}>
+                      <video
+                        ref={video}
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        aria-label={labels.videoLabel}
+                        onEnded={replay}
+                        onLoadedMetadata={(e) => setClip(Math.ceil(e.currentTarget.duration) || CLIP_SECONDS)}
+                      >
                         <source src="/media/hero-earthworks-1080.mp4" type="video/mp4" media="(min-width: 900px)" />
                         <source src="/media/hero-earthworks-720.mp4" type="video/mp4" />
                       </video>
@@ -87,7 +113,6 @@ export function HeroCarousel({ title, slides, labels }: { title: string; slides:
                     )}
                   </>
                 )}
-                {slide.tag ? <span className="media-tag">{slide.tag}</span> : null}
               </div>
               <div className="hero__content">
                 <TitleTag className="hero__title lines" aria-hidden={i === 0 || undefined}>
@@ -115,7 +140,14 @@ export function HeroCarousel({ title, slides, labels }: { title: string; slides:
         <div className="pager">
           <div className="pager__track" aria-hidden="true">
             <span className="pager__selector">
-              {rotating ? <span className="pager__timer" key={active} onAnimationEnd={next} /> : null}
+              {rotating ? (
+                <span
+                  className="pager__timer"
+                  key={active}
+                  style={{ animationDuration: `${active === 0 && motion ? clip : SLIDE_SECONDS}s` }}
+                  onAnimationEnd={next}
+                />
+              ) : null}
             </span>
           </div>
           <ul className="pager__stops">

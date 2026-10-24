@@ -27,7 +27,6 @@ export function HomeHero({ locale, dict }: { locale: Locale; dict: Dictionary })
           titleLines: h.titleLines,
           body: h.standfirst,
           cta: { href: href(locale, "/contact"), label: dict.common.requestQuote },
-          tag: dict.common.illustrativeFootage,
         },
         {
           label: dict.nav.process,

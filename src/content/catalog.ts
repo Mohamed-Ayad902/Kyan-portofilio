@@ -77,18 +77,24 @@ export const familyMembers = (family: EquipmentFamily): EquipmentSlug[] =>
 export const projectSlugs = ["cbd", "alamein-downtown-towers", "sunrev-solar", "elite-solar", "sailun-egypt-tyre"] as const;
 export type ProjectSlug = (typeof projectSlugs)[number];
 
+/** One picture of a project. `credit` is printed under it when the picture is not Kayan's own. */
+export type ProjectMedia = { image: StaticImageData; credit?: string };
+
 /**
- * Projects named in Kayan's portfolio. Each image is the one the portfolio places beside that
- * project name. Scope, dates, location and equipment supplied are not documented yet — add them
- * to the dictionaries' `projects.items[slug].details` once Kayan confirms them; the pages render
- * those fields only when present.
+ * Projects named in Kayan's portfolio. `media` is an ordered list: better pictures of the project
+ * itself go first, and the portfolio's own picture stays last. The first entry leads wherever a
+ * single picture is shown; the projects page shows them all. Only add a picture that is of that
+ * very project and whose licence allows the site to use it, and record it in
+ * src/assets/images/CREDITS.md. Scope, dates, location and equipment supplied are not documented
+ * yet — add them to the dictionaries' `projects.items[slug].details` once Kayan confirms them; the
+ * pages render those fields only when present.
  */
-export const projects: Record<ProjectSlug, { image: StaticImageData; sector: "commercial" | "highrise" | "solar" | "industrial" }> = {
-  cbd: { image: projectCbd, sector: "commercial" },
-  "alamein-downtown-towers": { image: projectAlamein, sector: "highrise" },
-  "sunrev-solar": { image: projectSunrev, sector: "solar" },
-  "elite-solar": { image: projectElite, sector: "solar" },
-  "sailun-egypt-tyre": { image: projectSailun, sector: "industrial" },
+export const projects: Record<ProjectSlug, { media: ProjectMedia[]; sector: "commercial" | "highrise" | "solar" | "industrial" }> = {
+  cbd: { media: [{ image: projectCbd }], sector: "commercial" },
+  "alamein-downtown-towers": { media: [{ image: projectAlamein }], sector: "highrise" },
+  "sunrev-solar": { media: [{ image: projectSunrev }], sector: "solar" },
+  "elite-solar": { media: [{ image: projectElite }], sector: "solar" },
+  "sailun-egypt-tyre": { media: [{ image: projectSailun }], sector: "industrial" },
 };
 
 export const industrySlugs = [
