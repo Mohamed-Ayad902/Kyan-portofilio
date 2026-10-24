@@ -2,18 +2,23 @@ import type { StaticImageData } from "next/image";
 
 import accessPlatforms from "@/assets/images/access-platforms-site.jpg";
 import excavatorFleet from "@/assets/images/excavator-fleet-row.jpg";
-import cbdA from "@/assets/images/project-media/cbd-business-district.jpg";
-import cbdB from "@/assets/images/project-media/cbd-tower-construction.jpg";
-import alA from "@/assets/images/project-media/alamein-tower-crane.jpg";
-import alB from "@/assets/images/project-media/alamein-skyscraper-cranes.jpg";
-import sun from "@/assets/images/project-media/sunrev-solar-aerial.jpg";
-import eli from "@/assets/images/project-media/elite-solar-desert.jpg";
-import sai from "@/assets/images/project-media/sailun-tyre-warehouse.jpg";
-import projectAlamein from "@/assets/images/project-alamein-downtown.jpg";
-import projectCbd from "@/assets/images/project-cbd.jpg";
-import projectElite from "@/assets/images/project-elite-solar.jpg";
-import projectSailun from "@/assets/images/project-sailun-egypt.jpg";
-import projectSunrev from "@/assets/images/project-sunrev-solar.jpg";
+import cbd1 from "@/assets/images/project-media/cbd-1.jpg";
+import cbd2 from "@/assets/images/project-media/cbd-2.jpg";
+import cbd3 from "@/assets/images/project-media/cbd-3.jpg";
+import alamein1 from "@/assets/images/project-media/alamein-1.jpg";
+import alamein2 from "@/assets/images/project-media/alamein-2.jpg";
+import alamein3 from "@/assets/images/project-media/alamein-3.jpg";
+import sunrev1 from "@/assets/images/project-media/sunrev-1.jpg";
+import sunrev2 from "@/assets/images/project-media/sunrev-2.jpg";
+import sunrev3 from "@/assets/images/project-media/sunrev-3.jpg";
+import sunrev4 from "@/assets/images/project-media/sunrev-4.jpg";
+import elite1 from "@/assets/images/project-media/elite-1.jpg";
+import elite2 from "@/assets/images/project-media/elite-2.jpg";
+import elite3 from "@/assets/images/project-media/elite-3.jpg";
+import elite4 from "@/assets/images/project-media/elite-4.jpg";
+import sailun1 from "@/assets/images/project-media/sailun-1.jpg";
+import sailun2 from "@/assets/images/project-media/sailun-2.jpg";
+import sailun3 from "@/assets/images/project-media/sailun-3.jpg";
 import siteMixed from "@/assets/images/site-loader-crane-forklift.jpg";
 import bulldozers from "@/assets/images/stock/equipment-bulldozers.jpg";
 import clarks from "@/assets/images/stock/equipment-clarks.jpg";
@@ -88,20 +93,19 @@ export type ProjectSlug = (typeof projectSlugs)[number];
 export type ProjectMedia = { image: StaticImageData; credit?: string };
 
 /**
- * Projects named in Kayan's portfolio. `media` is an ordered list: better pictures of the project
- * itself go first, and the portfolio's own picture stays last. The first entry leads wherever a
- * single picture is shown; the projects page shows them all. Only add a picture that is of that
- * very project and whose licence allows the site to use it, and record it in
- * src/assets/images/CREDITS.md. Scope, dates, location and equipment supplied are not documented
- * yet — add them to the dictionaries' `projects.items[slug].details` once Kayan confirms them; the
+ * Projects named in Kayan's portfolio. `media` is an ordered list of pictures of the project
+ * itself, chosen by the owner from press and partner sources; each `credit` names its source. The
+ * first entry leads wherever a single picture is shown; the projects page shows them all. Record
+ * every picture in src/assets/images/CREDITS.md. Scope, dates, location and equipment supplied are
+ * not documented yet — add them to the dictionaries' `projects.items[slug].details` once Kayan confirms them; the
  * pages render those fields only when present.
  */
 export const projects: Record<ProjectSlug, { media: ProjectMedia[]; sector: "commercial" | "highrise" | "solar" | "industrial" }> = {
-  cbd: { media: [{ image: cbdA, credit: "Pexels" }, { image: cbdB, credit: "Pexels" }, { image: projectCbd }], sector: "commercial" },
-  "alamein-downtown-towers": { media: [{ image: alA, credit: "Pexels" }, { image: alB, credit: "Pexels" }, { image: projectAlamein }], sector: "highrise" },
-  "sunrev-solar": { media: [{ image: sun, credit: "Pexels" }, { image: projectSunrev }], sector: "solar" },
-  "elite-solar": { media: [{ image: eli, credit: "Pexels" }, { image: projectElite }], sector: "solar" },
-  "sailun-egypt-tyre": { media: [{ image: sai, credit: "Pexels" }, { image: projectSailun }], sector: "industrial" },
+  cbd: { media: [{ image: cbd1, credit: "Facebook" }, { image: cbd2, credit: "CSCEC" }, { image: cbd3, credit: "Africa Intelligence" }], sector: "commercial" },
+  "alamein-downtown-towers": { media: [{ image: alamein1, credit: "City Edge Developments" }, { image: alamein2, credit: "realestate.gov.eg" }, { image: alamein3, credit: "realestate.gov.eg" }], sector: "highrise" },
+  "sunrev-solar": { media: [{ image: sunrev1, credit: "pv magazine" }, { image: sunrev2, credit: "TaiyangNews" }, { image: sunrev3, credit: "Seetao" }, { image: sunrev4, credit: "Seetao" }], sector: "solar" },
+  "elite-solar": { media: [{ image: elite1, credit: "Daily News Egypt" }, { image: elite2, credit: "LinkedIn" }, { image: elite3, credit: "LinkedIn" }, { image: elite4, credit: "ent.news" }], sector: "solar" },
+  "sailun-egypt-tyre": { media: [{ image: sailun1, credit: "SCZONE" }, { image: sailun2, credit: "Automir" }, { image: sailun3, credit: "Facebook" }], sector: "industrial" },
 };
 
 export const industrySlugs = [
