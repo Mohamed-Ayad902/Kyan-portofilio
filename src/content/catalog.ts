@@ -2,6 +2,13 @@ import type { StaticImageData } from "next/image";
 
 import accessPlatforms from "@/assets/images/access-platforms-site.jpg";
 import excavatorFleet from "@/assets/images/excavator-fleet-row.jpg";
+import cbdA from "@/assets/images/project-media/cbd-business-district.jpg";
+import cbdB from "@/assets/images/project-media/cbd-tower-construction.jpg";
+import alA from "@/assets/images/project-media/alamein-tower-crane.jpg";
+import alB from "@/assets/images/project-media/alamein-skyscraper-cranes.jpg";
+import sun from "@/assets/images/project-media/sunrev-solar-aerial.jpg";
+import eli from "@/assets/images/project-media/elite-solar-desert.jpg";
+import sai from "@/assets/images/project-media/sailun-tyre-warehouse.jpg";
 import projectAlamein from "@/assets/images/project-alamein-downtown.jpg";
 import projectCbd from "@/assets/images/project-cbd.jpg";
 import projectElite from "@/assets/images/project-elite-solar.jpg";
@@ -97,11 +104,11 @@ export type ProjectMedia = { image: StaticImageData; credit?: string };
  * pages render those fields only when present.
  */
 export const projects: Record<ProjectSlug, { media: ProjectMedia[]; sector: "commercial" | "highrise" | "solar" | "industrial" }> = {
-  cbd: { media: [{ image: projectCbd }], sector: "commercial" },
-  "alamein-downtown-towers": { media: [{ image: projectAlamein }], sector: "highrise" },
-  "sunrev-solar": { media: [{ image: projectSunrev }], sector: "solar" },
-  "elite-solar": { media: [{ image: projectElite }], sector: "solar" },
-  "sailun-egypt-tyre": { media: [{ image: projectSailun }], sector: "industrial" },
+  cbd: { media: [{ image: cbdA, credit: "Pexels" }, { image: cbdB, credit: "Pexels" }, { image: projectCbd }], sector: "commercial" },
+  "alamein-downtown-towers": { media: [{ image: alA, credit: "Pexels" }, { image: alB, credit: "Pexels" }, { image: projectAlamein }], sector: "highrise" },
+  "sunrev-solar": { media: [{ image: sun, credit: "Pexels" }, { image: projectSunrev }], sector: "solar" },
+  "elite-solar": { media: [{ image: eli, credit: "Pexels" }, { image: projectElite }], sector: "solar" },
+  "sailun-egypt-tyre": { media: [{ image: sai, credit: "Pexels" }, { image: projectSailun }], sector: "industrial" },
 };
 
 export const industrySlugs = [

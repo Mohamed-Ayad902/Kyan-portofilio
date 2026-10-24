@@ -2432,6 +2432,8 @@ main {
 .project__picture img {
   width: min(100%, 48rem);
   height: auto;
+  max-height: 38rem;
+  object-fit: cover;
 }
 .project__meta {
   display: grid;
