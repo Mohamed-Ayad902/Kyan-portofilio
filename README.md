@@ -25,11 +25,13 @@ npm run dev                  # http://localhost:3000 (redirects to /en)
 | Variable               | Needed for                          | Notes                                                                    |
 | ---------------------- | ----------------------------------- | ------------------------------------------------------------------------ |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URLs, hreflang, sitemap, OG | The production origin, e.g. `https://www.example.com`. Falls back to Vercel's production URL, then localhost. |
-| `RESEND_API_KEY`       | Sending quote requests by email     | Server only. Never prefix with `NEXT_PUBLIC_`.                           |
+| `QUOTE_SHEET_URL`      | Quote requests → Google Sheet + email | The Apps Script web app URL (`…/exec`). See [integrations/google-sheets](integrations/google-sheets/README.md). Server only. |
+| `QUOTE_SHEET_SECRET`   | Same                                | The secret `setup` prints in Apps Script. Server only.                   |
+| `RESEND_API_KEY`       | Sending quote requests by email (alternative to the sheet) | Server only. Never prefix with `NEXT_PUBLIC_`.                           |
 | `QUOTE_TO_EMAIL`       | Inbox that receives quote requests  | Server only.                                                             |
 | `QUOTE_FROM_EMAIL`     | Sender address on a verified Resend domain | Server only.                                                      |
 
-Until all three `QUOTE_*`/`RESEND_*` values are set, the form never pretends to send. `/api/quote` answers `503 not_configured`, and the page offers email, WhatsApp and phone links with the request already filled in.
+Quote requests go to the Google Sheet script when `QUOTE_SHEET_URL` and `QUOTE_SHEET_SECRET` are set, otherwise through Resend when all three Resend values are set. Until one of those is configured, the form never pretends to send. `/api/quote` answers `503 not_configured`, and the page offers email, WhatsApp and phone links with the request already filled in.
 
 ## Where things live
 

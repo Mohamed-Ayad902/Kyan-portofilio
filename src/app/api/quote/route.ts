@@ -1,13 +1,17 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+import type { EquipmentSlug, RentalDuration } from "@/content/catalog";
+import en from "@/dictionaries/en";
 import { hasLocale, type Locale } from "@/lib/i18n";
-import { clean, summarizeQuote, validateQuote, type QuoteInput } from "@/lib/quote";
+import { UNSURE, clean, summarizeQuote, validateQuote, type PreferredMethod, type QuoteInput } from "@/lib/quote";
 
 /**
  * Receives quote requests. Validates with the same rules as the browser, filters bots, limits
- * repeat submissions, and emails the request through Resend when RESEND_API_KEY, QUOTE_TO_EMAIL and
- * QUOTE_FROM_EMAIL are configured. Without them it answers 503 `not_configured`, and the form
- * offers email / WhatsApp / phone instead — it never reports a send that did not happen.
+ * repeat submissions, then delivers the request. With QUOTE_SHEET_URL and QUOTE_SHEET_SECRET it posts
+ * to the Google Apps Script in integrations/google-sheets, which appends a row to the sheet and
+ * emails Kayan; otherwise it emails through Resend when RESEND_API_KEY, QUOTE_TO_EMAIL and
+ * QUOTE_FROM_EMAIL are set. With neither it answers 503 `not_configured`, and the form offers
+ * email / WhatsApp / phone instead — it never reports a send that did not happen.
  */
 
 const MAX_BODY = 16_000;
@@ -82,15 +86,32 @@ export async function POST(request: NextRequest) {
   const key = clean(raw.idempotencyKey).slice(0, 80);
   if (key && duplicate(key, now)) return json({ code: "ok", duplicate: true });
 
+  const sheetUrl = process.env.QUOTE_SHEET_URL;
+  const sheetSecret = process.env.QUOTE_SHEET_SECRET;
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.QUOTE_TO_EMAIL;
   const from = process.env.QUOTE_FROM_EMAIL;
-  if (!apiKey || !to || !from) {
+  const useSheet = Boolean(sheetUrl && sheetSecret);
+  if (!useSheet && !(apiKey && to && from)) {
     if (key) seen.delete(key);
     return json({ code: "not_configured" }, 503);
   }
 
-  // Delivery is always in English so Kayan's inbox reads the same whatever the site language.
+  // Delivery is always in English so Kayan's inbox and sheet read the same whatever the site language.
+  const fields = {
+    name: input.name,
+    company: input.company,
+    email: input.email,
+    phone: input.phone,
+    equipment: input.equipment === UNSURE ? en.contact.form.equipmentUnsure : (en.equipment.items[input.equipment as EquipmentSlug]?.name ?? input.equipment),
+    location: input.location,
+    duration: en.contact.form.durations[input.duration as RentalDuration] ?? input.duration,
+    startDate: input.startDate,
+    operator: input.operator ? "Requested" : "Not requested",
+    preferred: en.contact.form.preferredOptions[input.preferred as PreferredMethod] ?? input.preferred,
+    message: input.message,
+    locale,
+  };
   const text = summarizeQuote(
     input,
     {
@@ -106,29 +127,37 @@ export async function POST(request: NextRequest) {
       message: "Project description",
       preferred: "Preferred contact",
     },
-    {
-      equipment: input.equipment,
-      duration: input.duration,
-      preferred: input.preferred,
-      operator: input.operator ? "Requested" : "Not requested",
-    },
+    fields,
   );
-  const subject = `Quote request: ${input.equipment} — ${input.name}`.replace(/[\r\n]+/g, " ").slice(0, 160);
+  const subject = `Quote request: ${fields.equipment} — ${input.name}`.replace(/[\r\n]+/g, " ").slice(0, 160);
 
   try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        subject,
-        text: `${text}\n\nSite language: ${locale}`,
-        ...(input.email ? { reply_to: input.email } : {}),
-      }),
-      signal: AbortSignal.timeout(10_000),
-    });
-    if (!res.ok) throw new Error(`Resend responded ${res.status}`);
+    if (useSheet) {
+      // Google Apps Script web app (integrations/google-sheets): appends a row and emails Kayan.
+      const res = await fetch(sheetUrl!, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ secret: sheetSecret, id: key || undefined, subject, text: `${text}\n\nSite language: ${locale}`, fields }),
+        redirect: "follow",
+        signal: AbortSignal.timeout(20_000),
+      });
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+      if (!res.ok || data?.ok !== true) throw new Error(`Apps Script responded ${res.status} ${data?.error ?? "without ok"}`);
+    } else {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from,
+          to: [to],
+          subject,
+          text: `${text}\n\nSite language: ${locale}`,
+          ...(input.email ? { reply_to: input.email } : {}),
+        }),
+        signal: AbortSignal.timeout(10_000),
+      });
+      if (!res.ok) throw new Error(`Resend responded ${res.status}`);
+    }
   } catch (error) {
     console.error("[quote] delivery failed", error instanceof Error ? error.message : error);
     if (key) seen.delete(key);
