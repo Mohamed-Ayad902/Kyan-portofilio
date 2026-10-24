@@ -43,7 +43,6 @@ export function Showcase({ locale, dict }: { locale: Locale; dict: Dictionary })
               </ul>
               <p className="chapter__sentence">
                 {f.sentence}
-                <span className="chapter__note">{dict.common.illustrative}</span>
               </p>
               <Link className="chapter__all" href={href(locale, "/equipment")}>
                 {dict.common.allEquipment}
