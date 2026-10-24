@@ -45,7 +45,6 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         note={dict.home.industries.note}
         link={{ href: href(locale, "/industries"), label: dict.home.industries.link }}
         equipmentLabel={dict.industries.page.equipmentLabel}
-        imageTag={dict.common.illustrative}
         cards={industrySlugs.map((slug) => ({
           slug,
           title: dict.industries.items[slug].title,

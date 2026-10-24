@@ -46,7 +46,7 @@ export default async function EquipmentPage({ params }: PageProps<"/[locale]/equ
         band={
           media.scene
             ? { kind: "split", image: media.scene, alt: item.name }
-            : { kind: "split", image: media.photo, alt: item.singular, tag: dict.common.illustrative }
+            : { kind: "split", image: media.photo, alt: item.singular }
         }
         crumbLabel={dict.common.breadcrumb}
         crumbs={[
@@ -68,7 +68,6 @@ export default async function EquipmentPage({ params }: PageProps<"/[locale]/equ
         {media.scene ? (
           <figure className="axis-section__side photo-figure" data-reveal>
             <Image src={media.photo} alt={item.singular} sizes="(min-width: 900px) 30vw, 100vw" placeholder="blur" />
-            <figcaption>{dict.common.illustrative}</figcaption>
           </figure>
         ) : (
           <p className="axis-section__side" data-reveal>

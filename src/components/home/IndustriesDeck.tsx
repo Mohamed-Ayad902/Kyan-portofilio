@@ -17,14 +17,12 @@ export function IndustriesDeck({
   link,
   cards,
   equipmentLabel,
-  imageTag,
 }: {
   heading: string;
   note: string;
   link: { href: string; label: string };
   cards: Card[];
   equipmentLabel: string;
-  imageTag: string;
 }) {
   const wrapper = useRef<HTMLDivElement>(null);
   const [pinned, setPinned] = useState(false);
@@ -87,7 +85,6 @@ export function IndustriesDeck({
                 <div className="deck__content" aria-hidden={state === "spine" ? true : undefined}>
                   <div className="deck__photo">
                     <Image src={card.image} alt="" sizes="(min-width: 1024px) 620px, (min-width: 720px) 50vw, 100vw" placeholder="blur" />
-                    <span className="media-tag">{imageTag}</span>
                   </div>
                   <h3 className="deck__card-title">{card.title}</h3>
                   <p>{card.body}</p>
