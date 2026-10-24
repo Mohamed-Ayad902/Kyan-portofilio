@@ -1,11 +1,16 @@
+import Image from "next/image";
 import Link from "next/link";
+
+import cranes from "@/assets/images/mobile-cranes-cluster.jpg";
 
 import { equipmentSlugs } from "@/content/catalog";
 import type { Dictionary } from "@/dictionaries/en";
 import { href, type Locale } from "@/lib/i18n";
 import { company, mapsUrl, whatsappUrl } from "@/lib/site";
 
+import { Arrow } from "./Arrow";
 import { primaryLinks } from "./Header";
+import { Logo } from "./Logo";
 
 export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const pages = [
@@ -18,10 +23,17 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
   return (
     <footer className="site-footer" data-theme-surface="inverse">
-      <div className="site-footer__columns">
-        <div className="site-footer__col site-footer__statement">
-          <p>{dict.footer.statement}</p>
+      <div className="site-footer__scene">
+        <Image src={cranes} alt="" sizes="100vw" placeholder="blur" data-parallax />
+        <div className="site-footer__sign">
+          <Logo ground="dark" alt={dict.meta.siteName} />
+          <p className="site-footer__tagline">{dict.footer.statement}</p>
+          <Link className="btn btn--light btn--arrow" href={href(locale, "/contact")}>
+            {dict.common.requestQuote}
+          </Link>
         </div>
+      </div>
+      <div className="site-footer__columns">
         <div className="site-footer__col">
           <h2>{dict.footer.contactTitle}</h2>
           <ul>
@@ -71,17 +83,13 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               <span key={line}>{line}</span>
             ))}
           </address>
-          <a href={mapsUrl} rel="noopener" target="_blank">
+          <a className="arrow-link" href={mapsUrl} rel="noopener" target="_blank">
             {dict.common.openMap}
+            <Arrow />
           </a>
         </div>
       </div>
       <div className="site-footer__base">
-        <svg className="site-footer__wordmark" viewBox="0 0 1000 205" role="img" aria-label="Kayan">
-          <text x="500" y="187" textAnchor="middle" textLength="1000" lengthAdjust="spacingAndGlyphs">
-            KA<tspan>Y</tspan>AN
-          </text>
-        </svg>
         <div className="site-footer__legal">
           <p>{dict.footer.legal.replace("{year}", String(year))}</p>
           <p>{dict.footer.imageCredit}</p>

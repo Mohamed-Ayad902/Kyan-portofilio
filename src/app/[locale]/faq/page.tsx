@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { ContactBand } from "@/components/ContactBand";
+import { CtaField } from "@/components/CtaField";
 import { FaqTable } from "@/components/FaqTable";
 import { JsonLd } from "@/components/JsonLd";
 import { faqLd } from "@/lib/jsonld";
@@ -29,7 +29,7 @@ export default async function FaqPage({ params }: PageProps<"/[locale]/faq">) {
         <p className="lead">{dict.faq.lead}</p>
       </div>
       <FaqTable as="h1" heading={dict.faq.title} items={dict.faq.items} />
-      <ContactBand locale={locale} dict={dict} />
+      <CtaField locale={locale} dict={dict} heading={dict.home.contact.question} body={dict.home.contact.sentence} />
       <JsonLd data={faqLd(dict.faq.items, locale)} />
     </>
   );

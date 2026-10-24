@@ -74,13 +74,6 @@ export const equipment: Record<
 export const familyMembers = (family: EquipmentFamily): EquipmentSlug[] =>
   equipmentSlugs.filter((slug) => equipment[slug].family === family);
 
-/** Flat field colour for each showcase chapter: the darkest large tone of its picture. */
-export const familyField: Record<EquipmentFamily, string> = {
-  earthmoving: "#2a2622",
-  lifting: "#1d2733",
-  access: "#24282b",
-};
-
 export const projectSlugs = ["cbd", "alamein-downtown-towers", "sunrev-solar", "elite-solar", "sailun-egypt-tyre"] as const;
 export type ProjectSlug = (typeof projectSlugs)[number];
 
